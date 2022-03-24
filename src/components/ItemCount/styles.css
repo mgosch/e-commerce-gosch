@@ -2,3 +2,15 @@
     justify-content: center;
     display: flex;
 }
+
+.Producto {
+    text-align: center;
+}
+
+.Card {
+    display: grid;
+}
+
+.Number {
+    margin: auto !important;
+}

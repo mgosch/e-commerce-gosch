@@ -1,0 +1,9 @@
+.Bienvenido {
+    margin: 10px 0px 10px 0px !important;
+    text-align: center;
+}
+
+.Items {
+    display: flex;
+    justify-content: space-around;
+}
