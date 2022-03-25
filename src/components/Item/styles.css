@@ -1,0 +1,14 @@
+.Image {
+    display: flex;
+    justify-content: center;
+}
+
+.Producto {
+    text-align: center;
+}
+
+.Boton {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 10px 0;
+}
