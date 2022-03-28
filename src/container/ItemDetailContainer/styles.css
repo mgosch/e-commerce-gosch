@@ -11,4 +11,10 @@
 .Loop {
     display: flex;
     justify-content: center;
+    width: 500px;
+}
+
+.Detalle {
+    display: flex;
+    justify-content: center;
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './styles.css';
 import Typography from '@material-ui/core/Typography';
 import ItemList from '../../components/ItemList';
+import { Loop } from '@material-ui/icons';
 // import ItemCount from '../../components/ItemCount';
 
 const ItemListContainer = ({ greeting }) => {
@@ -17,7 +18,8 @@ const ItemListContainer = ({ greeting }) => {
     (async () => {
       const obtenerProductos = new Promise((acc) => {
         setTimeout(() => {
-          acc(fetch('/data.json'))
+          // acc(fetch('/data.json'))
+          acc(fetch('https://fakestoreapi.com/products?sort=desc'))
         }, 2000)
       })
 
@@ -36,9 +38,14 @@ const ItemListContainer = ({ greeting }) => {
       <Typography className='Bienvenido'>
         {greeting}
       </Typography>
-      <ItemList productos={productos} />
+      {(productos.length === 0) ?
+        <div className='Loop'>
+          <Loop></Loop>
+        </div> :
+        <ItemList productos={productos} />
+      }
       {/* <div className='Items'>
-      <ItemCount stock={10} onAdd={onAdd} nombre={'Remeras'} />
+        <ItemCount stock={10} onAdd={onAdd} nombre={'Remeras'} />
       </div> */}
     </>
   )
