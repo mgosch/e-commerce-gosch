@@ -7,6 +7,11 @@
     text-align: center;
 }
 
+.Name {
+    text-align: center;
+    margin-top: 20px !important;
+}
+
 .Boton {
     display: flex;
     justify-content: center;
@@ -21,4 +26,10 @@
 .Categoria {
     font-size: 12px !important;
     font-style: italic !important;
+}
+
+.Detalle {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0 20px 0;
 }

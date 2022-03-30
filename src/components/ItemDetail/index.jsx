@@ -1,29 +1,38 @@
 import React from 'react';
-import { Grid, Card } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import { Button} from '@material-ui/core';
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
 
 const ItemDetail = ({ detalle }) => {
+    const navigate = useNavigate();
     return (
-        <Grid item xs={2} sm={4} md={4} key={detalle.index}>
-            <Card>
-                <Typography className='Categoria'>
-                    {detalle.category}
-                </Typography>
-                <Typography className='Producto'>
-                    {detalle.title}
-                </Typography>
+        <>
+            <Typography className='Name'>
+                {detalle.name}
+            </Typography>
+            <div className='Detalle'>
                 <div className='Image'>
-                    <img style={{ minWidth: 100, maxWidth: 140 }} src={detalle.image} alt='' />
+                    <img src={detalle.image} alt='' />
                 </div>
-                <Typography className='Descripcion'>
-                    {detalle.description}
-                </Typography>
-                <Typography className='Producto'>
-                    Precio: ${detalle.price}
-                </Typography>
-            </Card>
-        </Grid>
+                <div>
+                    <Typography className='Producto'>
+                        Especie: {detalle.species}
+                    </Typography>
+                    <Typography className='Producto'>
+                        Estado: {detalle.status}
+                    </Typography>
+                    <Typography className='Producto'>
+                        Genero: {detalle.gender}
+                    </Typography>
+                </div>
+            </div>
+            <div className='Boton'>
+                <Button variant="outlined" onClick={() => navigate(`/`)}>
+                    Volver
+                </Button>
+            </div>
+        </>
     )
 }
 

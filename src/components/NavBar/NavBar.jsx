@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CartWidget from '../CartWidget/CartWidget';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
+        flexGrow: 3,
+        textDecoration: 'none'
     },
 }));
 
@@ -29,9 +31,21 @@ const NavBar = () => {
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        Novedades
-                    </Typography>
+                    <NavLink to="/" className={classes.title}>
+                        <Typography variant="h6">
+                            Todos
+                        </Typography>
+                    </NavLink>
+                    <NavLink to="/category/Alien" className={classes.title}>
+                        <Typography variant="h6">
+                            Alien
+                        </Typography>
+                    </NavLink>
+                    <NavLink to="/category/Human" className={classes.title}>
+                        <Typography variant="h6">
+                            Human
+                        </Typography>
+                    </NavLink>
                     <CartWidget />
                     <Button color="inherit">Login</Button>
                 </Toolbar>
