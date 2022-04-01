@@ -4,16 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import ItemList from '../../components/ItemList';
 // import { Loop } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
-// import ItemCount from '../../components/ItemCount';
 
 const ItemListContainer = ({ greeting }) => {
 
   const [productos, setProductos] = useState([]);
   const { id } = useParams();
-
-  // const onAdd = (nombre, count) => {
-  //   console.log(nombre, count);
-  // }
 
   useEffect(() => {
     //IIFE
@@ -53,9 +48,6 @@ const ItemListContainer = ({ greeting }) => {
         <ItemList productos={productos} />
       } */}
       <ItemList productos={productos} />
-      {/* <div className='Items'>
-        <ItemCount stock={10} onAdd={onAdd} nombre={'Remeras'} />
-      </div> */}
     </>
   )
 }

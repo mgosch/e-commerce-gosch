@@ -7,7 +7,7 @@ import { AddCircle, RemoveCircle } from '@material-ui/icons';
 import React from 'react';
 import './styles.css';
 
-const ItemCount = ({ stock, onAdd, nombre }) => {
+const ItemCount = ({ stock, onAdd }) => {
   const [count, setCount] = React.useState(1);
 
   const handleCount = (parametro) => {
@@ -24,9 +24,6 @@ const ItemCount = ({ stock, onAdd, nombre }) => {
     <>
       <Card style={{ width: 275 }}>
         <CardContent className='Card'>
-          <Typography className='Producto'>
-            {nombre}
-          </Typography>
           <div className="Centrado">
             <IconButton onClick={() => handleCount('remove')}>
               < RemoveCircle />
@@ -38,7 +35,7 @@ const ItemCount = ({ stock, onAdd, nombre }) => {
               < AddCircle />
             </IconButton>
           </div>
-          <Button variant="outlined" onClick={() => onAdd(nombre, count)}>
+          <Button variant="outlined" onClick={() => onAdd(count)}>
             Agregar al carrito
           </Button>
         </CardContent>

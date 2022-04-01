@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
+import ItemCount from '../../components/ItemCount';
 
 const ItemDetail = ({ detalle }) => {
     const navigate = useNavigate();
+
+    const [count, setCount] = useState(0);
+
+    const onAdd = (count) => {
+        setCount(count);
+    }
+    
     return (
         <>
             <Typography className='Name'>
@@ -25,6 +33,17 @@ const ItemDetail = ({ detalle }) => {
                     <Typography className='Producto'>
                         Genero: {detalle.gender}
                     </Typography>
+                    {count === 0 ?
+                        <div className='Items'>
+                            <ItemCount stock={10} onAdd={onAdd} />
+                        </div> 
+                        :
+                        <div className='Boton'>
+                            <Button variant="outlined" onClick={() => navigate(`/cart`)}>
+                                Terminar compra
+                            </Button>
+                        </div>
+                    }
                 </div>
             </div>
             <div className='Boton'>
