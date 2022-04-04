@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import ItemCount from '../../components/ItemCount';
+import { Shop } from '../../context/ShopProvider';
 
 const ItemDetail = ({ detalle }) => {
     const navigate = useNavigate();
 
     const [count, setCount] = useState(0);
 
+    const {addCart} = useContext(Shop);
+
     const onAdd = (count) => {
         setCount(count);
+    }
+
+    const handleTerminate = () => {
+        addCart(detalle, count);
+        navigate(`/cart`);
+        console.log("Terminó la compra")
     }
     
     return (
@@ -39,7 +48,7 @@ const ItemDetail = ({ detalle }) => {
                         </div> 
                         :
                         <div className='Boton'>
-                            <Button variant="outlined" onClick={() => navigate(`/cart`)}>
+                            <Button variant="outlined" onClick={handleTerminate}>
                                 Terminar compra
                             </Button>
                         </div>
