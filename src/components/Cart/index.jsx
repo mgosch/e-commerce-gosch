@@ -10,10 +10,14 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import { Delete } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
+import './styles.css';
 
 function Cart() {
   const { cart, removeItem, clear } = useContext(Shop);
-
+  const total = getTotal(cart);
+  function getTotal(cart) {
+    return cart.map(({ count }) => count).reduce((sum, i) => sum + i, 0);
+  }
   const handleRemove = (id) => {
     removeItem(id);
   }
@@ -23,7 +27,7 @@ function Cart() {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table aria-label="simple table" className='Table'>
           <TableHead>
             <TableRow>
               <TableCell>Personaje</TableCell>
@@ -52,6 +56,10 @@ function Cart() {
                 </TableCell>
               </TableRow>
             ))}
+            <TableRow>
+              <TableCell colSpan={2}>Total</TableCell>
+              <TableCell align="right">{total}</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
