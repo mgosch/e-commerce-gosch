@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Shop } from '../../context/ShopProvider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,17 +11,26 @@ import IconButton from '@material-ui/core/IconButton';
 import { Delete } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
 import './styles.css';
+import Modal from '@material-ui/core/Modal';
+import Checkout from '../Checkout';
 
 function Cart() {
-  const { cart, removeItem, clear } = useContext(Shop);
-  const total = getTotal(cart);
-  function getTotal(cart) {
-    return cart.map(({ count }) => count).reduce((sum, i) => sum + i, 0);
-  }
+  const { cart, removeItem, clear, sumaTotal } = useContext(Shop);
+  const [suma, setSuma] = useState();
+  const [modal, setOpen] = useState(false);
+
+  useEffect(() => {
+    setSuma(sumaTotal())
+  }, [sumaTotal])
   const handleRemove = (id) => {
     removeItem(id);
   }
   const handleClear = () => {
+    clear();
+  }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
     clear();
   }
   return (
@@ -34,6 +43,7 @@ function Cart() {
               <TableCell align="right">Especie</TableCell>
               <TableCell align="right">Estado</TableCell>
               <TableCell align="right">Cantidad</TableCell>
+              <TableCell align="right">Precio</TableCell>
               <TableCell align="right">Acciones</TableCell>
             </TableRow>
           </TableHead>
@@ -49,6 +59,7 @@ function Cart() {
                 <TableCell align="right">{row.species}</TableCell>
                 <TableCell align="right">{row.status}</TableCell>
                 <TableCell align="right">{row.count}</TableCell>
+                <TableCell align="right">${(row.price * row.count)}</TableCell>
                 <TableCell align="right">
                   <IconButton onClick={() => handleRemove(row.id)}>
                     < Delete />
@@ -58,14 +69,22 @@ function Cart() {
             ))}
             <TableRow>
               <TableCell colSpan={2}>Total</TableCell>
-              <TableCell align="right">{total}</TableCell>
+              <TableCell align="right">${suma}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="outlined" onClick={handleClear}>
-        Vaciar carrito
-      </Button>
+      <div className='Botones'>
+        <Button variant="outlined" onClick={handleClear}>
+          Vaciar carrito
+        </Button>
+        <Button variant="outlined" onClick={handleOpen}>
+          Checkout
+        </Button>
+        <Modal open={modal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+          <Checkout cart={cart} total={suma} handleClose={handleClose} />
+        </Modal>
+      </div>
     </>
   )
 }

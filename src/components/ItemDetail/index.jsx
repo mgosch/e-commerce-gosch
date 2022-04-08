@@ -42,6 +42,9 @@ const ItemDetail = ({ detalle }) => {
                     <Typography className='Producto'>
                         Genero: {detalle.gender}
                     </Typography>
+                    <Typography className='Producto'>
+                        Precio: ${detalle.price}
+                    </Typography>
                     {count === 0 ?
                         <div className='Items'>
                             <ItemCount stock={10} onAdd={onAdd} />

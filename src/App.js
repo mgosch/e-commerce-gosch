@@ -6,7 +6,6 @@ import NotFound from './components/NotFound';
 import ItemDetailContainer from './container/ItemDetailContainer/ItemDetailContainer';
 import ItemListContainer from './container/ItemListContainer/ItemListContainer';
 
-
 function App() {
 
   return (

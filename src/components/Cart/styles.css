@@ -1,3 +1,9 @@
 .Table {
     width: 650px;
 }
+
+.Botones {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0 10px 0;
+}

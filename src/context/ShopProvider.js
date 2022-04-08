@@ -5,6 +5,7 @@ export const Shop = createContext();
 const ShopProvider = ({ children }) => {
 
     const [cart, setCart] = useState([]);
+
     const addCart = (producto, count) => {
         const productoABuscar = isInCart(producto);
         if (productoABuscar) {
@@ -15,6 +16,7 @@ const ShopProvider = ({ children }) => {
         } else {
             setCart([...cart, { ...producto, count }]);
         }
+        sumaTotal();
     }
     const removeItem = (id) => {
         const cartFiltrado = cart.filter(elemento => elemento.id !== id);
@@ -28,8 +30,13 @@ const ShopProvider = ({ children }) => {
     const isInCart = (producto) => {
         return cart.find(elemento => elemento.id === producto.id);
     }
+
+    const sumaTotal = () => {
+        return cart.reduce((sum, i) => sum += (i.price * i.count), 0);
+    }
+
     return (
-        <Shop.Provider value={{ cart, addCart, removeItem, clear }} >
+        <Shop.Provider value={{ cart, addCart, removeItem, clear, sumaTotal }} >
             {children}
         </Shop.Provider>
     )
