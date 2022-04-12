@@ -47,7 +47,7 @@ const ItemDetail = ({ detalle }) => {
                     </Typography>
                     {count === 0 ?
                         <div className='Items'>
-                            <ItemCount stock={10} onAdd={onAdd} />
+                            <ItemCount stock={detalle.stock} onAdd={onAdd} />
                         </div> 
                         :
                         <div className='Boton'>

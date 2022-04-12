@@ -85,13 +85,13 @@ const Checkout = ({ handleClose, cart, total }) => {
         <FormHelperText id="my-helper-text">Ingrese su dirección</FormHelperText>
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="direccion">Teléfono</InputLabel>
-        <Input id="direccion" aria-describedby="my-helper-text" value={direccion} onChange={handleChangeTelefono} />
+        <InputLabel htmlFor="telefono">Teléfono</InputLabel>
+        <Input id="telefono" aria-describedby="my-helper-text" value={telefono} onChange={handleChangeTelefono} />
         <FormHelperText id="my-helper-text">Ingrese tu teléfono</FormHelperText>
       </FormControl>
       <FormControl>
-        <InputLabel htmlFor="direccion">Mail</InputLabel>
-        <Input id="direccion" aria-describedby="my-helper-text" value={direccion} onChange={handleChangeMail} />
+        <InputLabel htmlFor="mail">Mail</InputLabel>
+        <Input id="mail" aria-describedby="my-helper-text" value={mail} onChange={handleChangeMail} />
         <FormHelperText id="my-helper-text">Ingrese tu correo electrónico</FormHelperText>
       </FormControl>
       <div className='Boton'>
