@@ -1,8 +1,13 @@
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import IconButton from '@material-ui/core/IconButton';
-import React from 'react';
+import React , { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Badge from '@material-ui/core/Badge';
+import { Shop } from '../../context/ShopProvider';
 
 const CartWidget = () => {
+  const { cart} = useContext(Shop);
+  const navigate = useNavigate();
   return (
     <>
       <IconButton
@@ -10,8 +15,10 @@ const CartWidget = () => {
         aria-controls="menu-appbar"
         aria-haspopup="true"
         color="inherit"
-      >
-        <ShoppingCart />
+        onClick={() => navigate(`/cart`)}>
+        <Badge badgeContent={cart.length} color="secondary">
+          <ShoppingCart />
+        </Badge>
       </IconButton>
     </>
   )

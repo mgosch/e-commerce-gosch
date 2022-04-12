@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase/config';
+import Alert from '@material-ui/lab/Alert';
 
 const style = {
   position: 'absolute',
@@ -57,11 +58,13 @@ const Checkout = ({ handleClose, cart, total }) => {
         mail: mail
       },
       items: cart,
-      total: total
+      total: total,
+      createAt: new Date().toLocaleString()
     };
     console.log(order);
     const orderCollection = collection(db, 'orders');
-    addDoc(orderCollection, order).then(({ id }) => alert(`Order generada con id ${id}`));
+    addDoc(orderCollection, order).then(({ id }) =>
+      <Alert severity="error">`Order generada con id ${id}`</Alert>);
     handleClose();
   }
   return (

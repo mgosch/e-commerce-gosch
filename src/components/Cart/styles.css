@@ -7,3 +7,14 @@
     justify-content: space-around;
     margin: 10px 0 10px 0;
 }
+
+.Mensaje {
+    width: 600px;
+    display: flex!important;
+    text-align-last: center!important;
+}
+
+.Content{
+    display: flex!important;
+    justify-content: center!important;
+}
