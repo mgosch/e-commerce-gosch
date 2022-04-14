@@ -8,9 +8,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { collection, addDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, writeBatch } from "firebase/firestore";
 import { db } from '../../firebase/config';
-import Alert from '@material-ui/lab/Alert';
 
 const style = {
   position: 'absolute',
@@ -50,7 +49,7 @@ const Checkout = ({ handleClose, cart, total }) => {
     if (name === "" || direccion === "" || telefono === "" || mail === "") {
       return
     }
-    const order = {
+    const orderGenerada = {
       buyer: {
         nombre: name,
         direccion: direccion,
@@ -61,12 +60,46 @@ const Checkout = ({ handleClose, cart, total }) => {
       total: total,
       createAt: new Date().toLocaleString()
     };
-    console.log(order);
-    const orderCollection = collection(db, 'orders');
-    addDoc(orderCollection, order).then(({ id }) =>
-      <Alert severity="error">`Order generada con id ${id}`</Alert>);
-    handleClose();
-  }
+    console.log(orderGenerada);
+
+    //Primer paso: abrir un batch
+    const batch = writeBatch(db);
+
+    //Array auxiliar que me define si hay productos fuera de stock
+    const outOfStock = [];
+
+    //Chequear el stock del producto en nuestra db y restarlo a la cantidad, si corresponde
+    cart.forEach((prod) => {
+      getDoc(doc(db, 'productos', prod.id))
+        .then((documentSnapshot) => {
+          if (documentSnapshot.data().stock >= prod.count) {
+            batch.update(doc(db, 'productos', documentSnapshot.id), {
+              stock: documentSnapshot.data().stock - prod.count
+            })
+          } else {
+            outOfStock.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
+          }
+          console.log(outOfStock);
+
+          if (outOfStock.length === 0) {
+            addDoc(collection(db, 'orders'), orderGenerada).then(({ id }) => {
+              batch.commit().then(() => {
+                alert("Se genero la order con id: " + id)
+                handleClose();
+              })
+            }).catch((err) => {
+              console.log(`Error: ${err.message}`);
+            })
+          } else {
+            let mensaje = ''
+            for (const producto of outOfStock) {
+              mensaje += `${producto.name}`;
+            }
+            alert(`Productos fuera de stock: ${mensaje}`)
+          }
+        })
+    })
+  };
   return (
     <Box sx={style}>
       <div className='Titulo'>

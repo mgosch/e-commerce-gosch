@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import { Delete } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
 import './styles.css';
-import Modal from '@material-ui/core/Modal';
 import Checkout from '../Checkout';
 import { CardContent, Card } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -26,17 +25,18 @@ function Cart() {
   useEffect(() => {
     setSuma(sumaTotal())
   }, [sumaTotal])
+
   const handleRemove = (id) => {
     removeItem(id);
   }
+
   const handleClear = () => {
     clear();
   }
+
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    clear();
-  }
+  const handleClose = () => setOpen(false);
+
   return (
     <> {cart.length > 0 ?
       <>
@@ -64,7 +64,7 @@ function Cart() {
                   <TableCell align="right">{row.species}</TableCell>
                   <TableCell align="right">{row.status}</TableCell>
                   <TableCell align="right">{row.count}</TableCell>
-                  <TableCell align="right">${(row.price * row.count)}</TableCell>
+                  <TableCell align="right">${(row.price)}</TableCell>
                   <TableCell align="right">
                     <IconButton onClick={() => handleRemove(row.id)}>
                       < Delete />
@@ -86,9 +86,12 @@ function Cart() {
           <Button variant="outlined" onClick={handleOpen}>
             Checkout
           </Button>
-          <Modal open={modal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-            <Checkout cart={cart} total={suma} handleClose={handleClose} />
-          </Modal>
+          {modal && <Checkout
+            handleClose={handleClose}
+            cart={cart}
+            total={suma}
+          />
+          }
         </div>
       </> :
       <div className='Content'>

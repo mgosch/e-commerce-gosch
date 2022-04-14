@@ -60,7 +60,7 @@ const ItemDetail = ({ detalle }) => {
             </div>
             <div className='Boton'>
                 <Button variant="outlined" onClick={() => navigate(`/`)}>
-                    Volver
+                    Seguir navegando
                 </Button>
             </div>
         </>

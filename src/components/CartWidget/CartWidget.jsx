@@ -1,13 +1,19 @@
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import IconButton from '@material-ui/core/IconButton';
-import React , { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 import { Shop } from '../../context/ShopProvider';
 
 const CartWidget = () => {
-  const { cart} = useContext(Shop);
   const navigate = useNavigate();
+  const { conteoItems } = useContext(Shop);
+  const [cantidadTotal, setCantidadTotal] = useState(0);
+
+  useEffect(() => {
+    setCantidadTotal(conteoItems())
+  }, [conteoItems])
+
   return (
     <>
       <IconButton
@@ -16,9 +22,11 @@ const CartWidget = () => {
         aria-haspopup="true"
         color="inherit"
         onClick={() => navigate(`/cart`)}>
-        <Badge badgeContent={cart.length} color="secondary">
-          <ShoppingCart />
-        </Badge>
+        {cantidadTotal !== 0 ?
+          <Badge badgeContent={cantidadTotal} color="secondary">
+            <ShoppingCart />
+          </Badge> :
+          <ShoppingCart />}
       </IconButton>
     </>
   )
